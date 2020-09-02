@@ -2,6 +2,7 @@
 
 namespace App\Observers;
 
+use App\Handlers\SlugTranslateHandler;
 use App\Models\Topic;
 
 // creating, created, updating, updated, saving,
@@ -14,5 +15,10 @@ class TopicObserver
         $topic->body = clean($topic->body,'user_topic_body');
 //            $topic->body = $topic->body.'这是事件监听添加得内容';
         $topic->excerpt = make_excerpt($topic->body);
+
+        if(!$topic->slug)
+        {
+            $topic->slug = app(SlugTranslateHandler::class)->translate($topic->title);
+        }
     }
 }
