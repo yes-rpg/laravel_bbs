@@ -58,6 +58,8 @@
   </div>
 
 @endsection
+
+
 @section('scripts')
   <script type="text/javascript" src="{{ asset('js/module.js') }}"></script>
   <script type="text/javascript" src="{{ asset('js/hotkeys.js') }}"></script>
