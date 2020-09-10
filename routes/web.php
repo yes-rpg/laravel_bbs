@@ -13,7 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', 'PagesController@root')->name('home');
+//Route::get('/', 'PagesController@root')->name('home');
+Route::get('/', 'TopicsController@index')->name('root');
 
 Auth::routes(['verify' => true]);
 
