@@ -1,10 +1,10 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Handlers\ImageUploadHandler;
 use App\Http\Requests\TopicRequest;
 use App\Models\Category;
+use App\Models\Link;
 use App\Models\Topic;
 use Illuminate\Http\Request;
 use App\Models\User;
@@ -15,11 +15,12 @@ class TopicsController extends Controller
         $this->middleware('auth', ['except' => ['index', 'show']]);
     }
 
-	public function index(Request $request,Topic $topic,User $user)
+	public function index(Request $request,Topic $topic,User $user,Link $link)
 	{
 		$topics = $topic->withOrder($request->order)->with('user', 'category')->paginate(15);
         $active_users = $user->getActiveUsers();
-		return view('topics.index', compact('topics','active_users'));
+        $links = $link->getAllCached();
+		return view('topics.index', compact('topics','active_users','links'));
 	}
 
     public function show(Topic $topic,Request $request)
